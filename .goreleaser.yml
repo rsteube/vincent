@@ -1,0 +1,78 @@
+before:
+  hooks:
+    - go mod download
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    main: ./cmd/vincent
+    binary: vincent
+    tags:
+      - release
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+brews:
+  -
+    name: vincent
+    description: "terminal color theme chooser"
+    homepage: "https://github.com/rsteube/vincent"
+    license: "MIT"
+    tap:
+      owner: rsteube
+      name: homebrew-tap
+      token: "{{ .Env.GORELEASER_GITHUB_TOKEN }}"
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+scoop:
+  description: "terminal color theme chooser"
+  homepage: "https://github.com/rsteube/vincent"
+  license: "MIT"
+  bucket:
+    owner: rsteube
+    name: scoop-bucket
+    token: "{{ .Env.GORELEASER_GITHUB_TOKEN }}"
+  commit_msg_template: "Scoop update for {{ .ProjectName }} version {{ .Tag }}"
+aurs:
+  -
+    description: "terminal color theme chooser"
+    homepage: "https://github.com/rsteube/vincent"
+    license: "MIT"
+    maintainers:
+      - rsteube <rsteube@users.noreply.github.com>
+    private_key: '{{ .Env.AUR_KEY }}'
+    git_url: 'ssh://aur@aur.archlinux.org/vincent-bin.git'
+
+nfpms:
+  -
+    description: "terminal color theme chooser"
+    homepage: "https://github.com/rsteube/vincent"
+    license: "MIT"
+    maintainer: rsteube <rsteube@users.noreply.github.com>
+    formats:
+      - apk
+      - deb
+      - rpm
+      - termux.deb
+
+publishers:
+  - name: fury
+    cmd: "bash -c \"[[ {{.ArtifactPath}} =~ ^.*.(deb|rpm)$ ]] && curl -F package=@{{abs .ArtifactPath}} https://$FURY_TOKEN@push.fury.io/rsteube/ || true\""
+    env:
+      - FURY_TOKEN={{ .Env.FURY_TOKEN }}
