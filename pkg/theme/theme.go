@@ -32,6 +32,13 @@ type Theme struct {
 	Cursor string `yaml:"cursor"`
 }
 
+func (t Theme) Format(format string) (s string) {
+	if f := outputs[format]; f != nil {
+		return f(t)
+	}
+	return ""
+}
+
 func (t Theme) Render() (s string) {
 	s += fmt.Sprintf("%v\n", t.render("                                                    "))
 	s += fmt.Sprintf("%v%v%v%v%v%v%v%v%v%v\n", t.render("  "), t.block(t.Black), t.block(t.Red), t.block(t.Green), t.block(t.Yellow), t.block(t.Blue), t.block(t.Magenta), t.block(t.Cyan), t.block(t.White), t.render("  "))
@@ -86,3 +93,5 @@ func (t Theme) commandline() string {
 		t.render("                        "),
 	)
 }
+
+var outputs = make(map[string]func(t Theme) string, 0)

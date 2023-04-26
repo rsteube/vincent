@@ -53,6 +53,9 @@ func print(w io.Writer, theme, format string) error {
 	}
 
 	switch format {
+	case "foot":
+		fmt.Fprintln(w, t.Format(format))
+
 	case "render":
 		fmt.Fprintln(w, t.Name)
 		fmt.Fprintln(w, t.Render())
@@ -80,6 +83,6 @@ func init() {
 		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
 			return carapace.ActionValues(vincent.Themes()...)
 		}),
-		carapace.ActionValues("json", "render", "yaml"),
+		carapace.ActionValues("json", "render", "yaml", "foot"),
 	)
 }
