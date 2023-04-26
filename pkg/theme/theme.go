@@ -95,5 +95,7 @@ func (t Theme) commandline() string {
 }
 
 var outputs = map[string]func(t Theme) string{
-	"render": func(t Theme) string { return t.Render() },
+	"render": func(t Theme) string {
+		return fmt.Sprintf("%v\n\n%v", t.Name, t.Render())
+	},
 }
