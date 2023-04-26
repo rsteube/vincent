@@ -1,6 +1,12 @@
 # vincent
 
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/rsteube/vincents)](https://pkg.go.dev/github.com/rsteube/vincent)
+[![GoReportCard](https://goreportcard.com/badge/github.com/rsteube/vincent)](https://goreportcard.com/report/github.com/rsteube/vincent)
+[![Coverage Status](https://coveralls.io/repos/github/rsteube/vincent/badge.svg?branch=master)](https://coveralls.io/github/rsteube/vincent?branch=master)
+[![Packaging status](https://repology.org/badge/tiny-repos/vincent.svg)](https://repology.org/project/vincent/versions)
+
 Terminal color theme chooser ([source](https://gogh-co.github.io/Gogh/)).
+
 
 [![asciicast](https://asciinema.org/a/580784.svg)](https://asciinema.org/a/580784)
 
