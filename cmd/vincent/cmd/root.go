@@ -13,7 +13,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "vincent",
+	Use:   "vincent [theme] [format]",
 	Short: "terminal color theme chooser",
 	Args:  cobra.MaximumNArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -80,6 +80,6 @@ func init() {
 		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
 			return carapace.ActionValues(vincent.Themes()...)
 		}),
-		carapace.ActionValues("json", "yaml"),
+		carapace.ActionValues("json", "render", "yaml"),
 	)
 }
