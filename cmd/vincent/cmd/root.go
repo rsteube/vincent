@@ -14,7 +14,18 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "vincent [theme] [format]",
 	Short: "terminal color theme chooser",
-	Args:  cobra.MaximumNArgs(2),
+	Example: `  vincent completion:
+    bash:       source <(vincent _carapace bash)
+    elvish:     eval (vincent _carapace elvish | slurp)
+    fish:       vincent _carapace fish | source
+    nushell:    vincent _carapace nushell
+    oil:        source <(vincent _carapace oil)
+    powershell: vincent _carapace powershell | Out-String | Invoke-Expression
+    tcsh:       eval ` + "`" + `vincent _carapace tcsh` + "`" + `
+    xonsh:      exec($(vincent _carapace xonsh))
+    zsh:        source <(vincent _carapace zsh)
+`,
+	Args: cobra.MaximumNArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		switch len(args) {
 		case 0:
