@@ -94,4 +94,6 @@ func (t Theme) commandline() string {
 	)
 }
 
-var outputs = make(map[string]func(t Theme) string, 0)
+var outputs = map[string]func(t Theme) string{
+	"render": func(t Theme) string { return t.Render() },
+}

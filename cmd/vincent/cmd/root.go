@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 
@@ -9,7 +8,6 @@ import (
 	"github.com/rsteube/vincent"
 	"github.com/rsteube/vincent/pkg/ui"
 	"github.com/spf13/cobra"
-	"gopkg.in/yaml.v3"
 )
 
 var rootCmd = &cobra.Command{
@@ -52,27 +50,7 @@ func print(w io.Writer, theme, format string) error {
 		return err
 	}
 
-	switch format {
-	case "foot":
-		fmt.Fprintln(w, t.Format(format))
-
-	case "render":
-		fmt.Fprintln(w, t.Name)
-		fmt.Fprintln(w, t.Render())
-	case "json":
-		m, err := json.Marshal(t)
-		if err != nil {
-			return err
-		}
-		fmt.Println(w, string(m))
-
-	case "yaml":
-		m, err := yaml.Marshal(t)
-		if err != nil {
-			return err
-		}
-		fmt.Println(w, string(m))
-	}
+	fmt.Fprintln(w, t.Format(format))
 	return nil
 }
 
