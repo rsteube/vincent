@@ -6,6 +6,7 @@ import (
 
 	"github.com/rsteube/carapace"
 	"github.com/rsteube/vincent"
+	"github.com/rsteube/vincent/pkg/theme"
 	"github.com/rsteube/vincent/pkg/ui"
 	"github.com/spf13/cobra"
 )
@@ -61,6 +62,8 @@ func init() {
 		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
 			return carapace.ActionValues(vincent.Themes()...)
 		}),
-		carapace.ActionValues("json", "render", "yaml", "foot"),
+		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
+			return carapace.ActionValues(theme.Formats()...)
+		}),
 	)
 }
