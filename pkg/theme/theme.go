@@ -99,3 +99,11 @@ var outputs = map[string]func(t Theme) string{
 		return fmt.Sprintf("%v\n\n%v", t.Name, t.Render())
 	},
 }
+
+func Formats() []string {
+	formats := make([]string, 0)
+	for key := range outputs {
+		formats = append(formats, key)
+	}
+	return formats
+}
