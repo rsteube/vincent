@@ -1,6 +1,6 @@
 # vincent
 
-Terminal color theme chooser (source: [Gogh](https://gogh-co.github.io/Gogh/)).
+Terminal color theme chooser ([source](https://gogh-co.github.io/Gogh/)).
 
 [![asciicast](https://asciinema.org/a/580784.svg)](https://asciinema.org/a/580784)
 
