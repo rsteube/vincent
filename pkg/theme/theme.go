@@ -2,6 +2,8 @@ package theme
 
 import (
 	"fmt"
+	"sort"
+	"strings"
 
 	"github.com/charmbracelet/lipgloss"
 )
@@ -36,7 +38,7 @@ func (t Theme) Format(format string) (s string, err error) {
 	if f := outputs[format]; f != nil {
 		return f(t)
 	}
-	return "", fmt.Errorf("unknown format: %v", format)
+	return "", fmt.Errorf("unknown format: %v - expected one of [%v]", format, strings.Join(Formats(), ", "))
 }
 
 func (t Theme) Render() (s string) {
@@ -105,5 +107,6 @@ func Formats() []string {
 	for key := range outputs {
 		formats = append(formats, key)
 	}
+	sort.Strings(formats)
 	return formats
 }
