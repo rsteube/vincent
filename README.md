@@ -7,8 +7,7 @@
 
 Terminal color theme chooser ([source](https://gogh-co.github.io/Gogh/)).
 
-
-[![asciicast](https://asciinema.org/a/580784.svg)](https://asciinema.org/a/580784)
+[![asciicast](https://asciinema.org/a/581022.svg)](https://asciinema.org/a/581022)
 
 
 # Getting Started
