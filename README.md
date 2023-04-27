@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/rsteube/vincent/badge.svg?branch=master)](https://coveralls.io/github/rsteube/vincent?branch=master)
 [![Packaging status](https://repology.org/badge/tiny-repos/vincent.svg)](https://repology.org/project/vincent/versions)
 
-Terminal color scheme chooser ([source](https://gogh-co.github.io/Gogh/)).
+Terminal color theme chooser ([source](https://gogh-co.github.io/Gogh/)).
 
 [![asciicast](https://asciinema.org/a/581022.svg)](https://asciinema.org/a/581022)
 
