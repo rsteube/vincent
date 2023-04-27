@@ -30,14 +30,26 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+c", "q":
 			return m, tea.Quit
 
-		case "left", "up", "k":
+		case "left", "h":
+			m.cursor -= 10
+			if m.cursor < 0 {
+				m.cursor = 0
+			}
+
+		case "up", "k":
 			if m.cursor > 0 {
 				m.cursor--
 			}
 
-		case "right", "down", "j":
+		case "down", "j":
 			if m.cursor < len(m.themes)-1 {
 				m.cursor++
+			}
+
+		case "right", "l":
+			m.cursor += 10
+			if max := len(m.themes) - 1; m.cursor > max {
+				m.cursor = max
 			}
 		}
 	}
