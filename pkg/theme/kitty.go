@@ -5,7 +5,7 @@ import (
 )
 
 func init() {
-	outputs["kitty"] = func(t Theme) string {
+	outputs["kitty"] = func(t Theme) (string, error) {
 		return fmt.Sprintf(`color0                %v
 color1                %v
 color2                %v
@@ -47,6 +47,6 @@ cursor                %v`,
 			t.Foreground,
 			t.Background,
 			t.Cursor,
-		)
+		), nil
 	}
 }

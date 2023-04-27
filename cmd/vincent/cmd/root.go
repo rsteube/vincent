@@ -31,17 +31,19 @@ var rootCmd = &cobra.Command{
 		case 0:
 			if cmd.Flag("list").Changed {
 				for _, theme := range vincent.Themes() {
-					print(cmd.OutOrStdout(), theme, "render")
+					if err := print(cmd.OutOrStdout(), theme, "render"); err != nil {
+						return err
+					}
 				}
 			} else {
 				ui.Execute()
 			}
 
 		case 1:
-			print(cmd.OutOrStdout(), args[0], "render")
+			return print(cmd.OutOrStdout(), args[0], "render")
 
 		case 2:
-			print(cmd.OutOrStdout(), args[0], args[1])
+			return print(cmd.OutOrStdout(), args[0], args[1])
 		}
 
 		return nil
@@ -62,7 +64,12 @@ func print(w io.Writer, theme, format string) error {
 		return err
 	}
 
-	fmt.Fprintln(w, t.Format(format))
+	f, err := t.Format(format)
+	if err != nil {
+		return err
+	}
+
+	fmt.Fprintln(w, f)
 	return nil
 }
 

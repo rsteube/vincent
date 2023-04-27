@@ -3,10 +3,11 @@ package theme
 import "encoding/json"
 
 func init() {
-	outputs["json"] = func(t Theme) string {
-		if m, err := json.MarshalIndent(t, "", "  "); err == nil {
-			return string(m)
+	outputs["json"] = func(t Theme) (string, error) {
+		m, err := json.MarshalIndent(t, "", "  ")
+		if err != nil {
+			return "", err
 		}
-		return ""
+		return string(m), nil
 	}
 }

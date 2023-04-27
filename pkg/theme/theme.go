@@ -32,11 +32,11 @@ type Theme struct {
 	Cursor string `yaml:"cursor"`
 }
 
-func (t Theme) Format(format string) (s string) {
+func (t Theme) Format(format string) (s string, err error) {
 	if f := outputs[format]; f != nil {
 		return f(t)
 	}
-	return ""
+	return "", fmt.Errorf("unknown format: %v", format)
 }
 
 func (t Theme) Render() (s string) {
@@ -94,9 +94,9 @@ func (t Theme) commandline() string {
 	)
 }
 
-var outputs = map[string]func(t Theme) string{
-	"render": func(t Theme) string {
-		return fmt.Sprintf("%v\n\n%v", t.Name, t.Render())
+var outputs = map[string]func(t Theme) (string, error){
+	"render": func(t Theme) (string, error) {
+		return fmt.Sprintf("%v\n\n%v", t.Name, t.Render()), nil
 	},
 }
 
