@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/rsteube/carapace"
 	"github.com/rsteube/vincent"
@@ -29,11 +30,20 @@ var rootCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		switch len(args) {
 		case 0:
-			if cmd.Flag("list").Changed {
-				for _, theme := range vincent.Themes() {
-					if err := print(cmd.OutOrStdout(), theme, "render"); err != nil {
-						return err
+			if f := cmd.Flag("list"); f.Changed {
+				switch f.Value.String() {
+				case "formats":
+					fmt.Fprintln(cmd.OutOrStdout(), strings.Join(theme.Formats(), "\n"))
+
+				case "full":
+					for _, theme := range vincent.Themes() {
+						if err := print(cmd.OutOrStdout(), theme, "render"); err != nil {
+							return err
+						}
 					}
+
+				case "name":
+					fmt.Fprintln(cmd.OutOrStdout(), strings.Join(vincent.Themes(), "\n"))
 				}
 			} else {
 				ui.Execute()
@@ -76,7 +86,12 @@ func print(w io.Writer, theme, format string) error {
 func init() {
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 
-	rootCmd.Flags().BoolP("list", "l", false, "list themes")
+	rootCmd.Flags().StringP("list", "l", "", "list themes")
+	rootCmd.Flag("list").NoOptDefVal = "full"
+
+	carapace.Gen(rootCmd).FlagCompletion(carapace.ActionMap{
+		"list": carapace.ActionValues("full", "name", "formats"),
+	})
 
 	carapace.Gen(rootCmd).PositionalCompletion(
 		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
