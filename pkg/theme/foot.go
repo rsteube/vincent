@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	outputs["foot"] = func(t Theme) string {
+	outputs["foot"] = func(t Theme) (string, error) {
 		return fmt.Sprintf(`[colors]
 alpha=1.0
 
@@ -50,6 +50,6 @@ background=%v`,
 
 			strings.TrimPrefix(t.Foreground, "#"),
 			strings.TrimPrefix(t.Background, "#"),
-		)
+		), nil
 	}
 }

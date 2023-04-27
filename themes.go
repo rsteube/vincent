@@ -2,6 +2,8 @@ package vincent
 
 import (
 	"embed"
+	"fmt"
+	"os"
 	"strings"
 
 	"github.com/rsteube/vincent/pkg/theme"
@@ -27,6 +29,9 @@ func Themes() []string {
 func Load(name string) (*theme.Theme, error) {
 	content, err := fs.ReadFile("third_party/github.com/Gogh-Co/Gogh/themes/" + name + ".yml")
 	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, fmt.Errorf("unknown theme: %v", name)
+		}
 		return nil, err
 	}
 

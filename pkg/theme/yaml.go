@@ -5,10 +5,11 @@ import (
 )
 
 func init() {
-	outputs["yaml"] = func(t Theme) string {
-		if m, err := yaml.Marshal(t); err == nil {
-			return string(m)
+	outputs["yaml"] = func(t Theme) (string, error) {
+		m, err := yaml.Marshal(t)
+		if err != nil {
+			return "", err
 		}
-		return ""
+		return string(m), nil
 	}
 }
