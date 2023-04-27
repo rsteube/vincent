@@ -74,6 +74,8 @@ func print(w io.Writer, theme, format string) error {
 }
 
 func init() {
+	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
+
 	rootCmd.Flags().BoolP("list", "l", false, "list themes")
 
 	carapace.Gen(rootCmd).PositionalCompletion(
