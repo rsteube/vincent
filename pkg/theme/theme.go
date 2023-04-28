@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
+	"github.com/muesli/termenv"
 )
 
 type Theme struct {
@@ -32,6 +33,12 @@ type Theme struct {
 	Foreground string `yaml:"foreground"`
 
 	Cursor string `yaml:"cursor"`
+}
+
+func (t Theme) IsDark() bool {
+	c := termenv.ConvertToRGB(termenv.RGBColor(t.Background))
+	_, _, l := c.Hsl()
+	return l < 0.5
 }
 
 func (t Theme) Format(format string) (s string, err error) {
