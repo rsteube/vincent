@@ -1,9 +1,9 @@
-package theme
+package scheme
 
 import "encoding/json"
 
 func init() {
-	outputs["json"] = func(t Theme) (string, error) {
+	outputs["json"] = func(t Scheme) (string, error) {
 		m, err := json.MarshalIndent(t, "", "  ")
 		if err != nil {
 			return "", err

@@ -1,4 +1,4 @@
-package theme
+package scheme
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	outputs["blink"] = func(t Theme) (string, error) {
+	outputs["blink"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`t.prefs_.set('color-palette-overrides', [%v]);
 t.prefs_.set('background-color', "%v");
 t.prefs_.set('foreground-color', "%v");

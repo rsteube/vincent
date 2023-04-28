@@ -1,9 +1,9 @@
-package theme
+package scheme
 
 import "fmt"
 
 func init() {
-	outputs["contour"] = func(t Theme) (string, error) {
+	outputs["contour"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`color_schemes:
   %v:
     normal:

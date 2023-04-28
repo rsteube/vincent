@@ -1,9 +1,9 @@
-package theme
+package scheme
 
 import "fmt"
 
 func init() {
-	outputs["urxvt"] = func(t Theme) (string, error) {
+	outputs["urxvt"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`URxvt.color0: %v
 URxvt.color1: %v
 URxvt.color2: %v

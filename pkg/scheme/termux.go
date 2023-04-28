@@ -1,9 +1,9 @@
-package theme
+package scheme
 
 import "fmt"
 
 func init() {
-	outputs["termux"] = func(t Theme) (string, error) {
+	outputs["termux"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`color0=%v
 color1=%v
 color2=%v

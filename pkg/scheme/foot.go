@@ -1,4 +1,4 @@
-package theme
+package scheme
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	outputs["foot"] = func(t Theme) (string, error) {
+	outputs["foot"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`[colors]
 alpha=1.0
 
