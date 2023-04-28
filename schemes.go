@@ -6,27 +6,27 @@ import (
 	"os"
 	"strings"
 
-	"github.com/rsteube/vincent/pkg/theme"
+	"github.com/rsteube/vincent/pkg/scheme"
 	"gopkg.in/yaml.v3"
 )
 
 //go:embed third_party/github.com/Gogh-Co/Gogh/*
 var fs embed.FS
 
-func Themes() []string {
+func Schemes() []string {
 	entries, err := fs.ReadDir("third_party/github.com/Gogh-Co/Gogh/themes")
 	if err != nil {
-		panic("failed to read themes")
+		panic("failed to read schemes")
 	}
 
-	themes := make([]string, 0)
+	schemes := make([]string, 0)
 	for _, entry := range entries {
-		themes = append(themes, strings.TrimSuffix(entry.Name(), ".yml"))
+		schemes = append(schemes, strings.TrimSuffix(entry.Name(), ".yml"))
 	}
-	return themes
+	return schemes
 }
 
-func Load(name string) (*theme.Theme, error) {
+func Load(name string) (*scheme.Scheme, error) {
 	f := readEmbedded
 	if strings.HasSuffix(name, ".yml") || strings.HasSuffix(name, ".yaml") {
 		f = os.ReadFile
@@ -37,18 +37,18 @@ func Load(name string) (*theme.Theme, error) {
 		return nil, err
 	}
 
-	var theme theme.Theme
-	if err := yaml.Unmarshal(content, &theme); err != nil {
+	var scheme scheme.Scheme
+	if err := yaml.Unmarshal(content, &scheme); err != nil {
 		return nil, err
 	}
-	return &theme, nil
+	return &scheme, nil
 }
 
 func readEmbedded(name string) ([]byte, error) {
 	content, err := fs.ReadFile("third_party/github.com/Gogh-Co/Gogh/themes/" + name + ".yml")
 	if err != nil {
 		if os.IsNotExist(err) {
-			return nil, fmt.Errorf("unknown theme: %v", name)
+			return nil, fmt.Errorf("unknown scheme: %v", name)
 		}
 		return nil, err
 	}

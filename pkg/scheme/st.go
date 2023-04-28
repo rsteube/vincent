@@ -1,9 +1,9 @@
-package theme
+package scheme
 
 import "fmt"
 
 func init() {
-	outputs["st"] = func(t Theme) (string, error) {
+	outputs["st"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`/* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */

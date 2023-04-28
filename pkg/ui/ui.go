@@ -9,8 +9,8 @@ import (
 )
 
 type model struct {
-	themes []string
-	cursor int
+	schemes []string
+	cursor  int
 }
 
 func (m model) Init() tea.Cmd {
@@ -19,7 +19,7 @@ func (m model) Init() tea.Cmd {
 
 func initialModel() model {
 	return model{
-		themes: vincent.Themes(),
+		schemes: vincent.Schemes(),
 	}
 }
 
@@ -42,13 +42,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 		case "down", "j":
-			if m.cursor < len(m.themes)-1 {
+			if m.cursor < len(m.schemes)-1 {
 				m.cursor++
 			}
 
 		case "right", "l":
 			m.cursor += 10
-			if max := len(m.themes) - 1; m.cursor > max {
+			if max := len(m.schemes) - 1; m.cursor > max {
 				m.cursor = max
 			}
 		}
@@ -58,7 +58,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	t, err := vincent.Load(m.themes[m.cursor])
+	t, err := vincent.Load(m.schemes[m.cursor])
 	if err != nil {
 		panic(err.Error()) // TODO handle err
 	}

@@ -1,11 +1,11 @@
-package theme
+package scheme
 
 import (
 	"gopkg.in/yaml.v3"
 )
 
 func init() {
-	outputs["yaml"] = func(t Theme) (string, error) {
+	outputs["yaml"] = func(t Scheme) (string, error) {
 		m, err := yaml.Marshal(t)
 		if err != nil {
 			return "", err

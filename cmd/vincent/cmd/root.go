@@ -7,14 +7,14 @@ import (
 
 	"github.com/rsteube/carapace"
 	"github.com/rsteube/vincent"
-	"github.com/rsteube/vincent/pkg/theme"
+	"github.com/rsteube/vincent/pkg/scheme"
 	"github.com/rsteube/vincent/pkg/ui"
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "vincent [theme] [format]",
-	Short: "terminal color theme chooser",
+	Use:   "vincent [scheme] [format]",
+	Short: "terminal color scheme chooser",
 	Example: `  vincent completion:
     bash:       source <(vincent _carapace bash)
     elvish:     eval (vincent _carapace elvish | slurp)
@@ -33,17 +33,17 @@ var rootCmd = &cobra.Command{
 			if f := cmd.Flag("list"); f.Changed {
 				switch f.Value.String() {
 				case "formats":
-					fmt.Fprintln(cmd.OutOrStdout(), strings.Join(theme.Formats(), "\n"))
+					fmt.Fprintln(cmd.OutOrStdout(), strings.Join(scheme.Formats(), "\n"))
 
 				case "full":
-					for _, theme := range vincent.Themes() {
-						if err := print(cmd.OutOrStdout(), theme, "render"); err != nil {
+					for _, scheme := range vincent.Schemes() {
+						if err := print(cmd.OutOrStdout(), scheme, "render"); err != nil {
 							return err
 						}
 					}
 
 				case "name":
-					fmt.Fprintln(cmd.OutOrStdout(), strings.Join(vincent.Themes(), "\n"))
+					fmt.Fprintln(cmd.OutOrStdout(), strings.Join(vincent.Schemes(), "\n"))
 				}
 			} else {
 				ui.Execute()
@@ -68,8 +68,8 @@ func Execute(version string) error {
 	return rootCmd.Execute()
 }
 
-func print(w io.Writer, theme, format string) error {
-	t, err := vincent.Load(theme)
+func print(w io.Writer, scheme, format string) error {
+	t, err := vincent.Load(scheme)
 	if err != nil {
 		return err
 	}
@@ -86,7 +86,7 @@ func print(w io.Writer, theme, format string) error {
 func init() {
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 
-	rootCmd.Flags().StringP("list", "l", "", "list themes")
+	rootCmd.Flags().StringP("list", "l", "", "list schemes")
 	rootCmd.Flag("list").NoOptDefVal = "full"
 
 	carapace.Gen(rootCmd).FlagCompletion(carapace.ActionMap{
@@ -98,10 +98,10 @@ func init() {
 			if hasPathPrefix(c.Value) {
 				return carapace.ActionFiles(".yml", ".yaml")
 			}
-			return carapace.ActionValues(vincent.Themes()...).Tag("themes")
+			return carapace.ActionValues(vincent.Schemes()...).Tag("schemes")
 		}),
 		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
-			return carapace.ActionValues(theme.Formats()...).Tag("formats")
+			return carapace.ActionValues(scheme.Formats()...).Tag("formats")
 		}),
 	)
 }

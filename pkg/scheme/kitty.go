@@ -1,11 +1,11 @@
-package theme
+package scheme
 
 import (
 	"fmt"
 )
 
 func init() {
-	outputs["kitty"] = func(t Theme) (string, error) {
+	outputs["kitty"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`color0                %v
 color1                %v
 color2                %v
