@@ -42,7 +42,7 @@ func (sc Scheme) IsDark() bool {
 }
 
 func (sc Scheme) Format(format string) (string, error) {
-	if f := outputs[format]; f != nil {
+	if f := formats[format]; f != nil {
 		return f(sc)
 	}
 	return "", fmt.Errorf("unknown format: %v - expected one of [%v]", format, strings.Join(Formats(), ", "))
@@ -101,17 +101,17 @@ func (sc Scheme) commandline() string {
 	)
 }
 
-var outputs = map[string]func(sc Scheme) (string, error){
+var formats = map[string]func(sc Scheme) (string, error){
 	"render": func(sc Scheme) (string, error) {
 		return fmt.Sprintf("%v\n\n%v", sc.Name, sc.Render()), nil
 	},
 }
 
 func Formats() []string {
-	formats := make([]string, 0)
-	for key := range outputs {
-		formats = append(formats, key)
+	result := make([]string, 0)
+	for key := range formats {
+		result = append(result, key)
 	}
-	sort.Strings(formats)
-	return formats
+	sort.Strings(result)
+	return result
 }

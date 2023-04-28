@@ -3,7 +3,7 @@ package scheme
 import "fmt"
 
 func init() {
-	outputs["alacritty"] = func(t Scheme) (string, error) {
+	formats["alacritty"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`colors:
   normal:
     black:   '%v'

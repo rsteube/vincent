@@ -5,7 +5,7 @@ import (
 )
 
 func init() {
-	outputs["kitty"] = func(t Scheme) (string, error) {
+	formats["kitty"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`color0                %v
 color1                %v
 color2                %v

@@ -5,7 +5,7 @@ import (
 )
 
 func init() {
-	outputs["yaml"] = func(t Scheme) (string, error) {
+	formats["yaml"] = func(t Scheme) (string, error) {
 		m, err := yaml.Marshal(t)
 		if err != nil {
 			return "", err

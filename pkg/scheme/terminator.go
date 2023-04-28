@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	outputs["terminator"] = func(t Scheme) (string, error) {
+	formats["terminator"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`[[%v]]
     palette = "%v"
     background_color = "%v"
