@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	outputs["foot"] = func(t Scheme) (string, error) {
+	formats["foot"] = func(t Scheme) (string, error) {
 		return fmt.Sprintf(`[colors]
 alpha=1.0
 

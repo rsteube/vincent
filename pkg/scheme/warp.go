@@ -5,7 +5,7 @@ import (
 )
 
 func init() {
-	outputs["warp"] = func(t Scheme) (string, error) {
+	formats["warp"] = func(t Scheme) (string, error) {
 		details := "lighter"
 		if t.IsDark() {
 			details = "darker"
