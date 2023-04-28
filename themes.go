@@ -27,11 +27,13 @@ func Themes() []string {
 }
 
 func Load(name string) (*theme.Theme, error) {
-	content, err := fs.ReadFile("third_party/github.com/Gogh-Co/Gogh/themes/" + name + ".yml")
+	f := readEmbedded
+	if strings.HasSuffix(name, ".yml") || strings.HasSuffix(name, ".yaml") {
+		f = os.ReadFile
+	}
+
+	content, err := f(name)
 	if err != nil {
-		if os.IsNotExist(err) {
-			return nil, fmt.Errorf("unknown theme: %v", name)
-		}
 		return nil, err
 	}
 
@@ -40,4 +42,15 @@ func Load(name string) (*theme.Theme, error) {
 		return nil, err
 	}
 	return &theme, nil
+}
+
+func readEmbedded(name string) ([]byte, error) {
+	content, err := fs.ReadFile("third_party/github.com/Gogh-Co/Gogh/themes/" + name + ".yml")
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, fmt.Errorf("unknown theme: %v", name)
+		}
+		return nil, err
+	}
+	return content, err
 }

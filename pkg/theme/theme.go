@@ -64,8 +64,6 @@ func (t Theme) Render() (s string) {
 	s += fmt.Sprintf("%v\n", t.render("                                                    "))
 	s += fmt.Sprintf("%v\n", t.commandline())
 	s += fmt.Sprintf("%v\n", t.render("                                                    "))
-
-	//"$ sudo apt install linux |"
 	return
 }
 

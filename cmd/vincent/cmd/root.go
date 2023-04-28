@@ -95,10 +95,17 @@ func init() {
 
 	carapace.Gen(rootCmd).PositionalCompletion(
 		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
-			return carapace.ActionValues(vincent.Themes()...)
+			if hasPathPrefix(c.Value) {
+				return carapace.ActionFiles(".yml", ".yaml")
+			}
+			return carapace.ActionValues(vincent.Themes()...).Tag("themes")
 		}),
 		carapace.ActionCallback(func(c carapace.Context) carapace.Action {
-			return carapace.ActionValues(theme.Formats()...)
+			return carapace.ActionValues(theme.Formats()...).Tag("formats")
 		}),
 	)
+}
+
+func hasPathPrefix(s string) bool { // TODO provide this in carapace (maybe add to context?)
+	return strings.HasPrefix(s, ".") || strings.HasPrefix(s, "~") || strings.HasPrefix(s, "/")
 }
