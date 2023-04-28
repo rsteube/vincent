@@ -37,7 +37,7 @@ var rootCmd = &cobra.Command{
 
 				case "full":
 					for _, scheme := range vincent.Schemes() {
-						if err := print(cmd.OutOrStdout(), scheme, "render"); err != nil {
+						if err := write(cmd.OutOrStdout(), scheme, "render"); err != nil {
 							return err
 						}
 					}
@@ -50,10 +50,10 @@ var rootCmd = &cobra.Command{
 			}
 
 		case 1:
-			return print(cmd.OutOrStdout(), args[0], "render")
+			return write(cmd.OutOrStdout(), args[0], "render")
 
 		case 2:
-			return print(cmd.OutOrStdout(), args[0], args[1])
+			return write(cmd.OutOrStdout(), args[0], args[1])
 		}
 
 		return nil
@@ -68,7 +68,7 @@ func Execute(version string) error {
 	return rootCmd.Execute()
 }
 
-func print(w io.Writer, scheme, format string) error {
+func write(w io.Writer, scheme, format string) error {
 	t, err := vincent.Load(scheme)
 	if err != nil {
 		return err

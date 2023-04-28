@@ -60,12 +60,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() string {
 	t, err := vincent.Load(m.schemes[m.cursor])
 	if err != nil {
-		panic(err.Error()) // TODO handle err
+		return err.Error()
 	}
 	s := fmt.Sprintf("%v\n\n", t.Name)
 	s += t.Render()
 
-	s += "\nPress q to quit.\n"
+	s += "\nPress arrows to navigate, q to quit.\n"
 
 	return s
 }
