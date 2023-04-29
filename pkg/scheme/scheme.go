@@ -35,6 +35,37 @@ type Scheme struct {
 	Cursor string `yaml:"cursor"`
 }
 
+func (sc Scheme) Colors() []string {
+	return append(sc.ColorsNormal(), sc.ColorsBright()...)
+}
+
+func (sc Scheme) ColorsNormal() []string {
+	return []string{
+		sc.Black,
+		sc.Red,
+		sc.Green,
+		sc.Yellow,
+		sc.Blue,
+		sc.Magenta,
+		sc.Cyan,
+		sc.White,
+	}
+
+}
+
+func (sc Scheme) ColorsBright() []string {
+	return []string{
+		sc.BrightBlack,
+		sc.BrightRed,
+		sc.BrightGreen,
+		sc.BrightYellow,
+		sc.BrightBlue,
+		sc.BrightMagenta,
+		sc.BrightCyan,
+		sc.BrightWhite,
+	}
+}
+
 func (sc Scheme) IsDark() bool {
 	c := termenv.ConvertToRGB(termenv.RGBColor(sc.Background))
 	_, _, l := c.Hsl()
