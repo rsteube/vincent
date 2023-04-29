@@ -80,21 +80,22 @@ func (sc Scheme) Format(format string) (string, error) {
 }
 
 func (sc Scheme) Render() (s string) {
-	s += fmt.Sprintf("%v\n", sc.render("                                                    "))
-	s += fmt.Sprintf("%v%v%v%v%v%v%v%v%v%v\n", sc.render("  "), sc.block(sc.Black), sc.block(sc.Red), sc.block(sc.Green), sc.block(sc.Yellow), sc.block(sc.Blue), sc.block(sc.Magenta), sc.block(sc.Cyan), sc.block(sc.White), sc.render("  "))
-	s += fmt.Sprintf("%v%v%v%v%v%v%v%v%v%v\n", sc.render("  "), sc.block(sc.BrightBlack), sc.block(sc.BrightRed), sc.block(sc.BrightGreen), sc.block(sc.BrightYellow), sc.block(sc.BrightBlue), sc.block(sc.BrightMagenta), sc.block(sc.BrightCyan), sc.block(sc.BrightWhite), sc.render("  "))
-	s += fmt.Sprintf("%v\n", sc.render("                                                    "))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.Black), sc.text(sc.BrightBlack))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.Red), sc.text(sc.BrightRed))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.Green), sc.text(sc.BrightGreen))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.Yellow), sc.text(sc.BrightYellow))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.Blue), sc.text(sc.BrightBlue))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.Magenta), sc.text(sc.BrightMagenta))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.Cyan), sc.text(sc.BrightCyan))
-	s += fmt.Sprintf("%v%v\n", sc.text(sc.White), sc.text(sc.BrightWhite))
-	s += fmt.Sprintf("%v\n", sc.render("                                                    "))
-	s += fmt.Sprintf("%v\n", sc.commandline())
-	s += fmt.Sprintf("%v\n", sc.render("                                                    "))
+	s += fmt.Sprintln(sc.render(strings.Repeat(" ", 52)))
+	s += fmt.Sprintln(sc.render("  ") + sc.block(sc.ColorsNormal()...) + sc.render("  "))
+	s += fmt.Sprintln(sc.render("  ") + sc.block(sc.ColorsBright()...) + sc.render("  "))
+	s += fmt.Sprintln(sc.render(strings.Repeat(" ", 52)))
+	s += fmt.Sprintln(sc.text(sc.Black, sc.BrightBlack))
+	s += fmt.Sprintln(sc.text(sc.Red, sc.BrightRed))
+	s += fmt.Sprintln(sc.text(sc.Green, sc.BrightGreen))
+	s += fmt.Sprintln(sc.text(sc.Yellow, sc.BrightYellow))
+	s += fmt.Sprintln(sc.text(sc.Blue, sc.BrightBlue))
+	s += fmt.Sprintln(sc.text(sc.Magenta, sc.BrightMagenta))
+	s += fmt.Sprintln(sc.text(sc.Cyan, sc.BrightCyan))
+	s += fmt.Sprintln(sc.text(sc.White, sc.BrightWhite))
+	s += fmt.Sprintln(sc.render(strings.Repeat(" ", 52)))
+	s += fmt.Sprintln(sc.commandline())
+	s += fmt.Sprintln(sc.render(strings.Repeat(" ", 52)))
+	fmt.Sprintln()
 	return
 }
 
@@ -106,19 +107,23 @@ func (sc Scheme) render(s string) string {
 	return style.Render(s)
 }
 
-func (sc Scheme) block(color string) string {
-	var style = lipgloss.NewStyle().
-		Background(lipgloss.Color(color))
-
-	return style.Render("      ")
+func (sc Scheme) block(color ...string) (s string) {
+	for _, c := range color {
+		s += lipgloss.NewStyle().
+			Background(lipgloss.Color(c)).
+			Render("      ")
+	}
+	return
 }
 
-func (sc Scheme) text(color string) string {
-	var style = lipgloss.NewStyle().
-		Foreground(lipgloss.Color(color)).
-		Background(lipgloss.Color(sc.Background))
-
-	return style.Render(fmt.Sprintf("   AaBbMmYyZz - %v   ", color))
+func (sc Scheme) text(color ...string) (s string) {
+	for _, c := range color {
+		s += lipgloss.NewStyle().
+			Background(lipgloss.Color(sc.Background)).
+			Foreground(lipgloss.Color(c)).
+			Render(fmt.Sprintf("   AaBbMmYyZz - %v   ", c))
+	}
+	return
 }
 
 func (sc Scheme) commandline() string {
