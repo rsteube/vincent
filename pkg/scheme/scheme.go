@@ -127,12 +127,13 @@ func (sc Scheme) text(color ...string) (s string) {
 }
 
 func (sc Scheme) commandline() string {
+	style := lipgloss.NewStyle().Background(lipgloss.Color(sc.Background))
 	return fmt.Sprintf("%v%v%v%v%v%v",
 		sc.render("  $ "),
-		lipgloss.NewStyle().Background(lipgloss.Color(sc.Background)).Foreground(lipgloss.Color(sc.Red)).Render("sudo "),
-		lipgloss.NewStyle().Background(lipgloss.Color(sc.Background)).Foreground(lipgloss.Color(sc.Green)).Render("apt "),
+		style.Foreground(lipgloss.Color(sc.Red)).Render("sudo "),
+		style.Foreground(lipgloss.Color(sc.Green)).Render("apt "),
 		sc.render("install linux "),
-		lipgloss.NewStyle().Blink(true).Background(lipgloss.Color(sc.Background)).Foreground(lipgloss.Color(sc.Foreground)).Render("|"),
+		style.Blink(true).Foreground(lipgloss.Color(sc.Foreground)).Render("|"),
 		sc.render("                        "),
 	)
 }
