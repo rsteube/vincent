@@ -11,6 +11,10 @@ func init() {
 		color := func(name, color string) string {
 			var c colorful.Color
 			c, err = colorful.Hex(color)
+			if err != nil {
+				return ""
+			}
+
 			return fmt.Sprintf(`  <key>%v</key>
   <dict>
     <key>Color Space</key>
