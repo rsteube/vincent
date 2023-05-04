@@ -46,7 +46,7 @@ var rootCmd = &cobra.Command{
 					fmt.Fprintln(cmd.OutOrStdout(), strings.Join(vincent.Schemes(), "\n"))
 				}
 			} else {
-				ui.Execute()
+				return ui.Execute()
 			}
 
 		case 1:

@@ -2,7 +2,6 @@ package ui
 
 import (
 	"fmt"
-	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/rsteube/vincent"
@@ -70,10 +69,8 @@ func (m model) View() string {
 	return s
 }
 
-func Execute() {
+func Execute() (err error) {
 	p := tea.NewProgram(initialModel())
-	if _, err := p.Run(); err != nil {
-		fmt.Printf("Alas, there's been an error: %v", err)
-		os.Exit(1)
-	}
+	_, err = p.Run()
+	return
 }

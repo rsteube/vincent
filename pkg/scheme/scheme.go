@@ -126,16 +126,16 @@ func (sc Scheme) text(color ...string) (s string) {
 	return
 }
 
-func (sc Scheme) commandline() string {
+func (sc Scheme) commandline() (s string) {
 	style := lipgloss.NewStyle().Background(lipgloss.Color(sc.Background))
-	return fmt.Sprintf("%v%v%v%v%v%v",
-		sc.render("  $ "),
-		style.Foreground(lipgloss.Color(sc.Red)).Render("sudo "),
-		style.Foreground(lipgloss.Color(sc.Green)).Render("apt "),
-		sc.render("install linux "),
-		style.Blink(true).Foreground(lipgloss.Color(sc.Foreground)).Render("|"),
-		sc.render("                        "),
-	)
+
+	s += sc.render("  $ ")
+	s += style.Foreground(lipgloss.Color(sc.Red)).Render("sudo ")
+	s += style.Foreground(lipgloss.Color(sc.Green)).Render("apt ")
+	s += sc.render("install linux ")
+	s += style.Blink(true).Foreground(lipgloss.Color(sc.Foreground)).Render("|")
+	s += sc.render("                        ")
+	return
 }
 
 var formats = map[string]func(sc Scheme) (string, error){
