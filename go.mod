@@ -3,7 +3,7 @@ module github.com/rsteube/vincent
 go 1.20
 
 require (
-	github.com/charmbracelet/bubbletea v0.24.0
+	github.com/charmbracelet/bubbletea v0.24.2
 	github.com/charmbracelet/lipgloss v0.7.1
 	github.com/lucasb-eyer/go-colorful v1.2.0
 	github.com/muesli/termenv v0.15.1
