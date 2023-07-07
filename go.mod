@@ -7,7 +7,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.7.1
 	github.com/lucasb-eyer/go-colorful v1.2.0
 	github.com/muesli/termenv v0.15.2
-	github.com/rsteube/carapace v0.37.2
+	github.com/rsteube/carapace v0.37.3
 	github.com/spf13/cobra v1.7.0
 	gopkg.in/yaml.v3 v3.0.1
 )
