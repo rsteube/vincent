@@ -4,33 +4,32 @@ import "fmt"
 
 func init() {
 	formats["alacritty"] = func(t Scheme) (string, error) {
-		return fmt.Sprintf(`colors:
-  normal:
-    black:   '%v'
-    red:     '%v'
-    green:   '%v'
-    yellow:  '%v'
-    blue:    '%v'
-    magenta: '%v'
-    cyan:    '%v'
-    white:   '%v'
-  
-  bright:
-    black:   '%v'
-    red:     '%v'
-    green:   '%v'
-    yellow:  '%v'
-    blue:    '%v'
-    magenta: '%v'
-    cyan:    '%v'
-    white:   '%v'
+		return fmt.Sprintf(`[colors.normal]
+black =   '%v'
+red =     '%v'
+green =   '%v'
+yellow =  '%v'
+blue =    '%v'
+magenta = '%v'
+cyan =    '%v'
+white =   '%v'
 
-  primary:
-    background: '%v'
-    foreground: '%v'
-  
-  cursor:
-    cursor: '%v'`,
+[colors.bright]
+black =   '%v'
+red =     '%v'
+green =   '%v'
+yellow =  '%v'
+blue =    '%v'
+magenta = '%v'
+cyan =    '%v'
+white =   '%v'
+
+[colors.primary]
+background = '%v'
+foreground = '%v'
+
+[colors.cursor]
+cursor = '%v'`,
 			t.Black,
 			t.Red,
 			t.Green,
