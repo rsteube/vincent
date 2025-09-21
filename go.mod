@@ -1,6 +1,6 @@
 module github.com/rsteube/vincent
 
-go 1.20
+go 1.24
 
 require (
 	github.com/charmbracelet/bubbletea v0.25.0
