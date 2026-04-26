@@ -5,7 +5,7 @@ go 1.24
 require (
 	github.com/charmbracelet/bubbletea v0.25.0
 	github.com/charmbracelet/lipgloss v0.10.0
-	github.com/lucasb-eyer/go-colorful v1.2.0
+	github.com/lucasb-eyer/go-colorful v1.4.0
 	github.com/muesli/termenv v0.16.0
 	github.com/rsteube/carapace v0.50.2
 	github.com/spf13/cobra v1.10.2
